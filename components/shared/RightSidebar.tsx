@@ -5,20 +5,20 @@ import RenderRag from "./RenderRag";
 
 const RightSidebar = () => {
   const hotQuestions = [
-    { _id: 1, title: "How do i use express as a custom server in Nextjs?" },
+    { _id: "1", title: "How do i use express as a custom server in Nextjs?" },
     {
       _id: 2,
       title:
         "How to Ensure Unique User Profile with ON CONFLICT in PostgreSQL Using Drizzle ORM?",
     },
-    { _id: 3, title: "How to center a div?" },
+    { _id: "3", title: "How to center a div?" },
     {
-      _id: 4,
+      _id: "4",
       title:
         "Node.js res.json() and res.send(), not working but still able to change status code",
     },
     {
-      _id: 5,
+      _id: "5",
       title:
         "What are the benefits and trade-offs of using Server-Side Rendering (SSR) in Next.js?",
     },
@@ -26,28 +26,28 @@ const RightSidebar = () => {
 
   const popularTags = [
     {
-      _id: 1,
+      _id: "1",
       name: "Javascript",
       totalQuestions: "5",
     },
     {
-      _id: 2,
+      _id: "2",
       name: "React",
       totalQuestions: "5",
     },
     {
-      _id: 3,
+      _id: "3",
       name: "Vue",
       totalQuestions: "4",
     },
     {
-      _id: 4,
+      _id: "4",
       name: "Redux",
       totalQuestions: "2",
     },
     {
-      _id: 5,
-      name: "Vanilla",
+      _id: "5",
+      name: "Java",
       totalQuestions: "2",
     },
   ];
