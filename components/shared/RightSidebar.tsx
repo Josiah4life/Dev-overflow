@@ -28,27 +28,27 @@ const RightSidebar = () => {
     {
       _id: "1",
       name: "Javascript",
-      totalQuestions: "5",
+      totalQuestions: 5,
     },
     {
       _id: "2",
       name: "React",
-      totalQuestions: "5",
+      totalQuestions: 4,
     },
     {
       _id: "3",
       name: "Vue",
-      totalQuestions: "4",
+      totalQuestions: 4,
     },
     {
       _id: "4",
       name: "Redux",
-      totalQuestions: "2",
+      totalQuestions: 5,
     },
     {
       _id: "5",
       name: "Java",
-      totalQuestions: "2",
+      totalQuestions: 2,
     },
   ];
   return (
