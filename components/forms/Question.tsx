@@ -36,7 +36,7 @@ interface Props {
 }
 
 const Question = ({ mongoUserId }: Props) => {
-  const editorRef = useRef<Editor | null>(null);
+  const editorRef = useRef(null);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
@@ -154,11 +154,11 @@ const Question = ({ mongoUserId }: Props) => {
                 Detailed explantion of your problem{" "}
                 <span className="text-primary-500">*</span>
               </FormLabel>
-              <FormControl className="mt-1">
+              <FormControl className="mt-3.5">
                 <Editor
                   apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
                   onInit={(evt, editor) => {
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-expect-error common
                     editorRef.current = editor;
                   }}
                   initialValue=""
