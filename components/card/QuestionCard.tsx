@@ -36,7 +36,7 @@ const QuestionCard = ({
     <div className="cardwrapper rounded-[10px] p-9 sm:px-11 ">
       <div className="flex flex-col-reverse items-start justify-between gap-5 sm:flex-row">
         <div>
-          <span className="subtle-regular text-dark400_light700 line-clamp-1 flex sm:hidden">
+          <span className="subtle-regular text-dark400_light700 line-clamp-1 flex sm:hidden ">
             {" "}
             {getTimestamp(createdAt)}
           </span>
@@ -62,28 +62,28 @@ const QuestionCard = ({
           title={` - asked ${getTimestamp(createdAt)}`}
           href={`/profile/${author._id}`}
           isAuthor
-          textStyles="body-medium text-dark400_-light700"
+          textStyles="body-medium text-dark400_light700"
         />
         <Metric
           imgUrl="/assets/icons/like.svg"
           alt="Upvotes"
           value={formatBigNumber(upvotes)}
           title="Votes"
-          textStyles="small-medium text-dark400_-light800"
+          textStyles="small-medium text-dark400_light800"
         />
         <Metric
           imgUrl="/assets/icons/message.svg"
           alt="Upvotes"
           value={formatBigNumber(answers.length)}
           title="Answers"
-          textStyles="small-medium text-dark400_-light800"
+          textStyles="small-medium text-dark400_light800"
         />
         <Metric
           imgUrl="/assets/icons/eye.svg"
           alt="eyes"
           value={formatBigNumber(views)}
           title="Views"
-          textStyles="small-medium text-dark400_-light800"
+          textStyles="small-medium text-dark400_light800"
         />
       </div>
     </div>
@@ -91,6 +91,3 @@ const QuestionCard = ({
 };
 
 export default QuestionCard;
-{
-  /* <span>{String(createdAt)}</span> */
-}
