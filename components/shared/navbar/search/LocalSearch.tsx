@@ -39,7 +39,7 @@ interface CustomInputProps {
 }
 
 const LocalSearch = ({
-  route,
+  // route,
   iconPosition,
   imgSrc,
   placeholder,

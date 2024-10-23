@@ -5,12 +5,13 @@ import { connectToDatabase } from "../mongoose";
 import {
   CreateUserParams,
   DeleteUserParams,
+  GetUserByIdParams,
   UpdateUserParams,
 } from "./shared.types";
 import { revalidatePath } from "next/cache";
 import Question from "@/database/question.model";
 
-export async function getUserById(params: any) {
+export async function getUserById(params: GetUserByIdParams) {
   try {
     connectToDatabase();
 
@@ -29,7 +30,7 @@ export async function getUserById(params: any) {
   }
 }
 
-export async function createUser(userParam: CreateUserParams) {
+export async function createUser(userData: CreateUserParams) {
   try {
     connectToDatabase();
 
@@ -73,9 +74,9 @@ export async function deleteUser(params: DeleteUserParams) {
       throw new Error("User not found");
     }
 
-    const userQuestionIds = await Question.find({
-      author: user._id,
-    }).distinct("_id");
+    // const userQuestionIds = await Question.find({
+    //   author: user._id,
+    // }).distinct("_id");
 
     await Question.deleteMany({
       author: user._id,

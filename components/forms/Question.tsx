@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useRef, useState } from "react";
@@ -27,6 +28,7 @@ import { useRouter, usePathname } from "next/navigation";
 //   }),
 // });
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const type: any = "create";
 
 interface Props {
@@ -66,6 +68,7 @@ const Question = ({ mongoUserId }: Props) => {
       });
 
       router.push("/");
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
     } finally {
       setIsSubmitting(false);

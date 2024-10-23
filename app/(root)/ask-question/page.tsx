@@ -1,9 +1,9 @@
 import Question from "@/components/forms/Question";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 import React from "react";
 
 import { getUserById } from "@/lib/actions/user.action";
-import { auth } from "@clerk/nextjs/server";
+// import { auth } from "@clerk/nextjs/server";
 
 const Page = async () => {
   // const { userId } = auth();
