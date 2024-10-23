@@ -4,7 +4,7 @@
 import React, { useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { Noop, RefCallBack, useForm } from "react-hook-form";
 import { z } from "zod";
 import {
   Form,
@@ -77,7 +77,14 @@ const Question = ({ mongoUserId }: Props) => {
 
   const handleInputKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
-    field
+    field: {
+      onChange?: (...event: any[]) => void;
+      onBlur?: Noop;
+      value: any;
+      disabled?: boolean | undefined;
+      name: any;
+      ref?: RefCallBack;
+    }
   ) => {
     if (e.key === "Enter" && field.name === "tags") {
       e.preventDefault();
