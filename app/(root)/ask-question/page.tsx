@@ -1,16 +1,16 @@
 import Question from "@/components/forms/Question";
-// import { redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import React from "react";
 
 import { getUserById } from "@/lib/actions/user.action";
-// import { auth } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 
 const Page = async () => {
-  // const { userId } = auth();
+  const { userId } = auth();
 
-  const userId = "clerk_123456";
+  // const userId = "clerk_123456";
 
-  // if (!userId) redirect("/sign-in");
+  if (!userId) redirect("/sign-in");
 
   if (!userId) {
     console.log("No user found with this clerkId");
