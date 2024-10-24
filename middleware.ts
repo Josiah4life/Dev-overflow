@@ -11,6 +11,7 @@ const isPublicRoute = createRouteMatcher([
   "/profile/:id",
   "/community",
   "/jobs",
+  "/api/chatgpt",
 ]);
 
 export default clerkMiddleware((auth, request) => {
