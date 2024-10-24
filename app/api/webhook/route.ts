@@ -41,12 +41,10 @@ export async function POST(req: Request) {
   // Log payload data for further debugging
   console.log("Payload received:", payload);
 
-  // Instantiate SVIX webhook instance
   const wh = new Webhook(WEBHOOK_SECRET);
 
   let evt: WebhookEvent;
 
-  // Verify and parse the payload with SVIX headers
   try {
     evt = wh.verify(body, {
       "svix-id": svix_id,
