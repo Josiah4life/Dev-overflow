@@ -9,8 +9,6 @@ import {
 } from "@/lib/actions/question.action";
 import { toggleSaveQuestion } from "@/lib/actions/user.action";
 import { formatBigNumber } from "@/lib/utils";
-import { View } from "lucide-react";
-import { Arsenal } from "next/font/google";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect } from "react";

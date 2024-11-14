@@ -31,6 +31,7 @@ export const POST = async (request: Request) => {
     const reply = responseData.choices[0].message.content;
 
     return NextResponse.json({ reply });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     return NextResponse.json({ error: error.message });
   }

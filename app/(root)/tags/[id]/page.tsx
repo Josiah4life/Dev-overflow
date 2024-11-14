@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import QuestionCard from "@/components/card/QuestionCard";
 import NoResult from "@/components/shared/NoResult";
 import Pagination from "@/components/shared/Pagination";
@@ -15,7 +17,6 @@ const Page = async ({ params, searchParams }: URLProps) => {
   return (
     <>
       <h1 className="h1-bold text-dark100_light900">{result.tagTitle}</h1>
-
       <div className="mt-11 w-full">
         <LocalSearch
           route={`/tags/${params.id}`}

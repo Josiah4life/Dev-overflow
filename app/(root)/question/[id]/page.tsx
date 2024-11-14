@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getQuestionById } from "@/lib/actions/question.action";
 import Link from "next/link";
 import React from "react";
@@ -17,7 +18,7 @@ const Page = async ({ searchParams, params }: any) => {
     questionId: params.id,
   });
 
-  const { userId: clerkId } = auth();
+  const { userId: clerkId } = await auth();
 
   let mongoUser;
 

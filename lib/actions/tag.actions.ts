@@ -9,7 +9,7 @@ import {
 } from "./shared.types";
 import Tag, { ITag } from "@/database/tags.model";
 import Question from "@/database/question.model";
-import { FilterQuery, FilterQuery } from "mongoose";
+import { FilterQuery } from "mongoose";
 
 export async function getTopInteractedTags(params: GetTopInteractedTagsParams) {
   try {

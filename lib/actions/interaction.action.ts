@@ -26,13 +26,14 @@ export async function viewQuestion(params: ViewQuestionParams) {
         question: questionId,
       });
 
-      // Create Interaction
-
-      await Interaction.create({
-        user: userId,
-        action: "view",
-        question: questionId,
-      });
+      // Only create a new interaction if it doesn't already exist
+      if (!existingInteraction) {
+        await Interaction.create({
+          user: userId,
+          action: "view",
+          question: questionId,
+        });
+      }
     }
   } catch (error) {
     console.log(error);
