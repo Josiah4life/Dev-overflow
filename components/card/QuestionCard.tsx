@@ -4,6 +4,8 @@ import React from "react";
 import RenderRag from "../shared/RenderRag";
 import Metric from "../shared/Metric";
 import { formatBigNumber, getTimestamp } from "@/lib/utils";
+import { SignedIn } from "@clerk/nextjs";
+import EditDeleteAction from "../shared/EditDeleteAction";
 
 interface QuestionProps {
   _id: string;
@@ -17,12 +19,14 @@ interface QuestionProps {
     name: string;
     picture: string;
   };
-  upvotes: number;
+  upvotes: string[];
   views: number;
   answers: Array<object>;
   createdAt: Date;
+  clerkId?: string;
 }
 const QuestionCard = ({
+  clerkId,
   _id,
   title,
   tags,
@@ -32,8 +36,10 @@ const QuestionCard = ({
   answers,
   createdAt,
 }: QuestionProps) => {
+  const showActionButtons = clerkId && clerkId === author.clerkId;
+
   return (
-    <div className="cardwrapper rounded-[10px] p-9 sm:px-11 ">
+    <div className=" card-wrapper rounded-[10px] p-9 sm:px-11 ">
       <div className="flex flex-col-reverse items-start justify-between gap-5 sm:flex-row">
         <div>
           <span className="subtle-regular text-dark400_light700 line-clamp-1 flex sm:hidden ">
@@ -46,9 +52,14 @@ const QuestionCard = ({
             </h3>
           </Link>
         </div>
-        {/* Edit Logged In */}
+
+        <SignedIn>
+          {showActionButtons && (
+            <EditDeleteAction type="Question" itemId={JSON.stringify(_id)} />
+          )}
+        </SignedIn>
       </div>
-      <div className="mt-3.5 flex flex-wrap gap[-2]">
+      <div className=" mt-3.5 flex flex-wrap gap-2">
         {tags.map((tag) => (
           <RenderRag key={tag._id} name={tag.name} _id={tag._id} />
         ))}
@@ -64,27 +75,31 @@ const QuestionCard = ({
           isAuthor
           textStyles="body-medium text-dark400_light700"
         />
-        <Metric
-          imgUrl="/assets/icons/like.svg"
-          alt="Upvotes"
-          value={formatBigNumber(upvotes)}
-          title="Votes"
-          textStyles="small-medium text-dark400_light800"
-        />
-        <Metric
-          imgUrl="/assets/icons/message.svg"
-          alt="Upvotes"
-          value={formatBigNumber(answers.length)}
-          title="Answers"
-          textStyles="small-medium text-dark400_light800"
-        />
-        <Metric
-          imgUrl="/assets/icons/eye.svg"
-          alt="eyes"
-          value={formatBigNumber(views)}
-          title="Views"
-          textStyles="small-medium text-dark400_light800"
-        />
+
+        <div className="flex items-center gap-3 max-sm:flex-wrap">
+          {" "}
+          <Metric
+            imgUrl="/assets/icons/like.svg"
+            alt="Upvotes"
+            value={formatBigNumber(upvotes.length)}
+            title="Votes"
+            textStyles="small-medium text-dark400_light800"
+          />
+          <Metric
+            imgUrl="/assets/icons/message.svg"
+            alt="Upvotes"
+            value={formatBigNumber(answers.length)}
+            title="Answers"
+            textStyles="small-medium text-dark400_light800"
+          />
+          <Metric
+            imgUrl="/assets/icons/eye.svg"
+            alt="eyes"
+            value={formatBigNumber(views)}
+            title="Views"
+            textStyles="small-medium text-dark400_light800"
+          />
+        </div>
       </div>
     </div>
   );

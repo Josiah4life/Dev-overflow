@@ -18,7 +18,7 @@ export async function POST(req: Request) {
       "Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local"
     );
   }
-  const headerPayload = headers();
+  const headerPayload = await headers();
   const svix_id = headerPayload.get("svix-id");
   const svix_timestamp = headerPayload.get("svix-timestamp");
   const svix_signature = headerPayload.get("svix-signature");
@@ -72,7 +72,6 @@ export async function POST(req: Request) {
         email: email_addresses[0].email_address,
         picture: image_url,
       });
-      console.log("User created successfully:", mongoUser);
 
       return NextResponse.json({ message: "OK", user: mongoUser });
     } catch (err) {
@@ -99,7 +98,6 @@ export async function POST(req: Request) {
         },
         path: `/profile/${id}`,
       });
-      console.log("User updated successfully:", mongoUser);
 
       return NextResponse.json({ message: "OK", user: mongoUser });
     } catch (err) {
@@ -119,5 +117,5 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: "OK", user: deletedUser });
   }
 
-  return new Response("", { status: 201 });
+  return NextResponse.json({ status: "OK" });
 }

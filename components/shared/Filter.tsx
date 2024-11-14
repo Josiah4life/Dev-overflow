@@ -9,6 +9,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { SelectGroup } from "@radix-ui/react-select";
+import { formUrlQuery } from "@/lib/utils";
+import { useRouter, useSearchParams } from "next/navigation";
+import { url } from "inspector";
 
 interface Props {
   filters: {
@@ -20,9 +23,25 @@ interface Props {
   containerClasses?: string;
 }
 const Filter = ({ filters, otherClasses, containerClasses }: Props) => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const paramsFilter = searchParams.get("filter");
+
+  const handleUpdateParams = (value: string) => {
+    const newUrl = formUrlQuery({
+      params: searchParams.toString(),
+      key: "filter",
+      value,
+    });
+    router.push(newUrl, { scroll: false });
+  };
   return (
     <div className={`relative ${containerClasses}`}>
-      <Select>
+      <Select
+        onValueChange={(value) => handleUpdateParams(value)}
+        defaultValue={paramsFilter || undefined}
+      >
         <SelectTrigger
           className={`${otherClasses} body-regular 
           light-border background-light800_dark300 
@@ -32,11 +51,15 @@ const Filter = ({ filters, otherClasses, containerClasses }: Props) => {
             <SelectValue placeholder="Select a Filter" />
           </div>
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className=" text-dark500_light700 small-regular cursor-pointer border-none bg-light-900 dark:bg-dark-300">
           <SelectGroup>
             {filters.map((item) => (
-              <SelectItem key={item.value} value={item.value}>
-                {item.value}
+              <SelectItem
+                key={item.value}
+                value={item.value}
+                className="focus:bg-light-800 dark:focus:bg-dark-400"
+              >
+                {item.name}
               </SelectItem>
             ))}
           </SelectGroup>

@@ -29,7 +29,7 @@ export const HomePageFilters = [
   { name: "Unanswered", value: "unanswered" },
 ];
 export const GlobalSearchFilters = [
-  { name: "Question", value: "question" },
+  { name: "Question", value: "questions" },
   { name: "Answer", value: "answer" },
   { name: "User", value: "user" },
   { name: "Tag", value: "tag" },

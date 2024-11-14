@@ -1,6 +1,9 @@
 import { clsx, type ClassValue } from "clsx";
 // import { create } from "domain";
 import { twMerge } from "tailwind-merge";
+import qs from "query-string";
+import { BADGE_CRITERIA } from "@/constant";
+import { BadgeCounts } from "@/types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -43,14 +46,103 @@ export const getTimestamp = (createdAt: Date): string => {
   return `${seconds} second${seconds > 1 ? "s" : ""} ago`;
 };
 
-// Example usage:
-console.log(getTimestamp(new Date("2024-10-01T12:00:00.00Z"))); // Output will vary depending on the current date
-
 export const formatBigNumber = (num: number): string => {
-  if (num >= 1_000_000) {
-    return `${(num / 1_000_000).toFixed(1)}M`; // Divide by 1,000,000 for millions
-  } else if (num >= 1_000) {
-    return `${(num / 1_000).toFixed(1)}K`; // Divide by 1,000 for thousands
+  if (isNaN(num) || num === undefined || num === null) {
+    return "0"; // Or handle the error as needed
   }
-  return num.toString(); // Return the number as a string if it's less than 1,000
+  if (num >= 1_000_000) {
+    return `${(num / 1_000_000).toFixed(1)}M`;
+  } else if (num >= 1_000) {
+    return `${(num / 1_000).toFixed(1)}K`;
+  }
+  return num.toString();
+};
+
+export function formatJoinDate(date: Date): string {
+  // Check if the input is a valid Date object
+  if (!(date instanceof Date) || isNaN(date.getTime())) {
+    throw new Error("Invalid date object");
+  }
+
+  // Define options for month and year formatting
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+  };
+
+  // Format the date to a readable string
+  return date.toLocaleDateString("en-US", options);
+}
+
+interface UrlQueryParams {
+  params: string;
+  key: string;
+  value: string | null;
+}
+export const formUrlQuery = ({ params, key, value }: UrlQueryParams) => {
+  const currentUrl = qs.parse(params);
+
+  currentUrl[key] = value;
+
+  return qs.stringifyUrl(
+    {
+      url: window.location.pathname,
+      query: currentUrl,
+    },
+    { skipNull: true }
+  );
+};
+
+interface RemoveUrlQueryParams {
+  params: string;
+  keysToRemove: string[];
+}
+
+export const removeKeysFromQuery = ({
+  params,
+  keysToRemove,
+}: RemoveUrlQueryParams) => {
+  const currentUrl = qs.parse(params);
+
+  keysToRemove.forEach((key) => {
+    delete currentUrl[key];
+  });
+
+  return qs.stringifyUrl(
+    {
+      url: window.location.pathname,
+      query: currentUrl,
+    },
+    { skipNull: true }
+  );
+};
+
+interface BadgeParam {
+  criteria: {
+    type: keyof typeof BADGE_CRITERIA;
+    count: number;
+  }[];
+}
+
+export const assignBadges = (params: BadgeParam) => {
+  const badgeCounts: BadgeCounts = {
+    GOLD: 0,
+    SILVER: 0,
+    BRONZE: 0,
+  };
+
+  const { criteria } = params;
+
+  criteria.forEach((item) => {
+    const { type, count } = item;
+    const badgeLevels = BADGE_CRITERIA[type];
+
+    Object.keys(badgeLevels).forEach((level) => {
+      if (count >= badgeLevels[level]) {
+        badgeCounts[level as keyof BadgeCounts] += 1;
+      }
+    });
+  });
+
+  return badgeCounts;
 };
