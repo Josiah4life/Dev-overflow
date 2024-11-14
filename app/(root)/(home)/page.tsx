@@ -19,9 +19,9 @@ export const metadata: Metadata = {
 
 export default async function Home({ searchParams }: SearchParamsProps) {
   const result = await getQuestions({
-    searchQuery: searchParams.q,
-    filter: searchParams.filter,
-    page: searchParams.page ? +searchParams.page : 1,
+    searchQuery: await searchParams.q,
+    filter: await searchParams.filter,
+    page: searchParams.page ? +(await searchParams.page) : 1,
   });
 
   return (
