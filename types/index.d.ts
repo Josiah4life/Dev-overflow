@@ -38,9 +38,6 @@ export interface Country {
 export interface ParamsProps {
   params: { id: string };
 }
-// export interface SearchParamsProps {
-//   searchParams: { [key: string]: string | undefined };
-// }
 
 export interface SearchParamsProps {
   searchParams: Record<string, string | undefined>;
