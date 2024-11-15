@@ -17,9 +17,9 @@ export const metadata: Metadata = {
   title: "Home | Dev Overflow",
 };
 
-export default async function Home(props: SearchParamsProps) {
+export default async function Home(props: Promise<SearchParamsProps>) {
   /* @next-codemod-ignore */
-  const searchParams = await props.searchParams;
+  const { searchParams } = await props;
   const result = await getQuestions({
     searchQuery: searchParams.q,
     filter: searchParams.filter,
