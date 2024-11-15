@@ -1,4 +1,6 @@
-// import { UserButton } from "@clerk/nextjs";
+import type { Metadata } from "next";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 import QuestionCard from "@/components/card/QuestionCard";
 import HomeFilter from "@/components/home/HomeFilter";
@@ -6,22 +8,22 @@ import Filter from "@/components/shared/Filter";
 import LocalSearch from "@/components/shared/navbar/search/LocalSearch";
 import NoResult from "@/components/shared/NoResult";
 import Pagination from "@/components/shared/Pagination";
-import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constant/filter";
 import { getQuestions } from "@/lib/actions/question.action";
-import { SearchParamsProps } from "@/types";
-import Link from "next/link";
 
-import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Home | Dev Overflow",
 };
 
-export default async function Home({ searchParams }: SearchParamsProps) {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: URLSearchParams;
+}) {
   const result = await getQuestions({
-    searchQuery: await searchParams.q,
-    filter: await searchParams.filter,
-    page: searchParams.page ? +(await searchParams.page) : 1,
+    searchQuery: searchParams.get("q") || "",
+    filter: searchParams.get("filter") || "",
+    page: parseInt(searchParams.get("page") || "1", 10),
   });
 
   return (
@@ -35,14 +37,14 @@ export default async function Home({ searchParams }: SearchParamsProps) {
           </Button>
         </Link>
       </div>
-      <div className=" mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
+      <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
         <LocalSearch
           route="/"
           iconPosition="left"
           imgSrc="/assets/icons/search.svg"
           placeholder="Search for questions"
           otherClasses="flex-1"
-        />{" "}
+        />
         <Filter
           filters={HomePageFilters}
           otherClasses="min-h-[56px] sm:min-w-[170px]"
@@ -70,7 +72,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         ) : (
           <NoResult
             title="There's no question to show"
-            description="Be the first to break the silence! 🚀 Ask a Question and kickstart the discussion. our query could be the next big thing others learn from. Get involved! 💡"
+            description="Be the first to break the silence! 🚀 Ask a Question and kickstart the discussion. Your query could be the next big thing others learn from. Get involved! 💡"
             link="/ask-question"
             linkTitle="Ask a question"
           />
@@ -78,7 +80,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
       </div>
       <div className="mt-10">
         <Pagination
-          pageNumber={searchParams?.page ? +searchParams.page : 1}
+          pageNumber={parseInt(searchParams.get("page") || "1", 10)}
           isNext={result.isNext}
         />
       </div>
