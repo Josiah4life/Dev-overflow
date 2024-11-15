@@ -137,7 +137,7 @@ const Question = ({ mongoUserId, type, questionDetails }: Props) => {
   };
 
   return (
-    <Suspense>
+    <Suspense fallback={<div>...Loading</div>}>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
