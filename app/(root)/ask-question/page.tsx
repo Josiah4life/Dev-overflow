@@ -3,7 +3,7 @@ import { getUserById } from "@/lib/actions/user.action";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import React, { Suspense } from "react";
-import Loading from "../collection/loading";
+import Loading from "./loading";
 
 const Page = async () => {
   const { userId } = await auth();
