@@ -27,17 +27,22 @@ export default async function Home(props: SearchParamsProps) {
       {" "}
       <h1 className="h1-bold text-dark100_light900">Saved Questions</h1>
       <div className=" mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
-        <LocalSearch
-          route="/collection"
-          iconPosition="left"
-          imgSrc="/assets/icons/search.svg"
-          placeholder="Search for questions"
-          otherClasses="flex-1"
-        />{" "}
-        <Filter
-          filters={QuestionFilters}
-          otherClasses="min-h-[56px] sm:min-w-[170px]"
-        />
+        <Suspense fallback={<Loading />}>
+          <LocalSearch
+            route="/collection"
+            iconPosition="left"
+            imgSrc="/assets/icons/search.svg"
+            placeholder="Search for questions"
+            otherClasses="flex-1"
+          />{" "}
+        </Suspense>
+
+        <Suspense fallback={<Loading />}>
+          <Filter
+            filters={QuestionFilters}
+            otherClasses="min-h-[56px] sm:min-w-[170px]"
+          />
+        </Suspense>
       </div>
       <div className="mt-10 flex w-full flex-col gap-6">
         {result.questions.length > 0 ? (
