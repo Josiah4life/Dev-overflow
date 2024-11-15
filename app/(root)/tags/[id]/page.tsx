@@ -6,6 +6,7 @@ import Pagination from "@/components/shared/Pagination";
 import LocalSearch from "@/components/shared/navbar/search/LocalSearch";
 import { getQuestionsByTagId } from "@/lib/actions/tag.actions";
 import { URLProps } from "@/types";
+import { Suspense } from "react";
 
 const Page = async (props: URLProps) => {
   const searchParams = await props.searchParams;
@@ -17,7 +18,7 @@ const Page = async (props: URLProps) => {
   });
 
   return (
-    <>
+    <Suspense>
       <h1 className="h1-bold text-dark100_light900">{result.tagTitle}</h1>
       <div className="mt-11 w-full">
         <LocalSearch
@@ -60,7 +61,7 @@ const Page = async (props: URLProps) => {
           pageNumber={searchParams?.page ? +searchParams.page : 1}
         />
       </div>
-    </>
+    </Suspense>
   );
 };
 

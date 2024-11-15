@@ -12,6 +12,7 @@ import LocalSearchbar from "@/components/shared/navbar/search/LocalSearch";
 import { HomePageFilters } from "@/constant/filter";
 import QuestionCard from "@/components/card/QuestionCard";
 import HomeFilter from "@/components/home/HomeFilter";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Home | Dev Overflow",
@@ -28,7 +29,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
   });
 
   return (
-    <>
+    <Suspense>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
         <h1 className="h1-bold text-dark100_light900">All Questions</h1>
 
@@ -87,6 +88,6 @@ export default async function Home({ searchParams }: SearchParamsProps) {
           isNext={result.isNext}
         />
       </div>
-    </>
+    </Suspense>
   );
 }

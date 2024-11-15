@@ -8,6 +8,7 @@ import { SearchParamsProps } from "@/types";
 import Pagination from "@/components/shared/Pagination";
 
 import type { Metadata } from "next";
+import { Suspense } from "react";
 export const metadata: Metadata = {
   title: "Community | Dev Overflow",
 };
@@ -21,7 +22,7 @@ const Page = async (props: SearchParamsProps) => {
   });
 
   return (
-    <>
+    <Suspense>
       <h1 className="h1-bold text-dark100_light900">All Users</h1>
       <div className=" mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
         <LocalSearch
@@ -56,7 +57,7 @@ const Page = async (props: SearchParamsProps) => {
           isNext={result.isNext}
         />
       </div>
-    </>
+    </Suspense>
   );
 };
 

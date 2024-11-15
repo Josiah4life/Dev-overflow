@@ -1,5 +1,3 @@
-// import { UserButton } from "@clerk/nextjs";
-
 import QuestionCard from "@/components/card/QuestionCard";
 import Filter from "@/components/shared/Filter";
 import LocalSearch from "@/components/shared/navbar/search/LocalSearch";
@@ -25,7 +23,7 @@ export default async function Home(props: SearchParamsProps) {
   });
 
   return (
-    <>
+    <Suspense>
       {" "}
       <h1 className="h1-bold text-dark100_light900">Saved Questions</h1>
       <div className=" mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
@@ -74,6 +72,6 @@ export default async function Home(props: SearchParamsProps) {
           />
         </Suspense>
       </div>
-    </>
+    </Suspense>
   );
 }
