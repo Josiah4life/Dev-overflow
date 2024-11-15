@@ -29,14 +29,18 @@ import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 
 interface Props {
   data: string;
+  otherClasses?: string;
 }
 
-const ParseHTML = ({ data }: Props) => {
+const ParseHTML = ({ data, otherClasses }: Props) => {
   useEffect(() => {
     Prism.highlightAll();
   }, []);
 
-  return <div className={"markdown w-full min-w-full"}>{parse(data)}</div>;
+  return (
+    <div className={`markdown w-full min-w-full ${otherClasses}`}>
+      {parse(data)}
+    </div>
+  );
 };
-
 export default ParseHTML;

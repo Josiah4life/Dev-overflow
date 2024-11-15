@@ -2,7 +2,7 @@ import Question from "@/components/forms/Question";
 import { getUserById } from "@/lib/actions/user.action";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import React, { Suspense } from "react";
+import React from "react";
 import Loading from "./loading";
 
 const Page = async () => {
@@ -13,15 +13,15 @@ const Page = async () => {
   const mongoUser = await getUserById({ userId });
 
   return (
-    <Suspense fallback={<Loading />}>
-      <div>
-        <h1 className="h1-bold text-dark100_light900">Ask a question</h1>
+    <div>
+      <h1 className="h1-bold text-dark100_light900">Ask a question</h1>
 
-        <div className="mt-9">
+      <div className="mt-9">
+        <React.Suspense fallback={<Loading />}>
           <Question mongoUserId={JSON.stringify(mongoUser?._id)} />
-        </div>
+        </React.Suspense>
       </div>
-    </Suspense>
+    </div>
   );
 };
 
