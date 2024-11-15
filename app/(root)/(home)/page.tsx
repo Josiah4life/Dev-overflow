@@ -17,13 +17,18 @@ export const metadata: Metadata = {
   title: "Home | Dev Overflow",
 };
 
-export default async function Home(props: Promise<SearchParamsProps>) {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | undefined }>;
+}) {
+  // const filters = await searchParams;
+  const awaitedSearchParams = await searchParams;
   /* @next-codemod-ignore */
-  const { searchParams } = await props;
   const result = await getQuestions({
-    searchQuery: searchParams.q,
-    filter: searchParams.filter,
-    page: searchParams.page ? +searchParams.page : 1,
+    searchQuery: awaitedSearchParams.q || undefined,
+    filter: awaitedSearchParams.filter || undefined,
+    page: awaitedSearchParams.page ? +awaitedSearchParams.page : 1,
   });
 
   return (
