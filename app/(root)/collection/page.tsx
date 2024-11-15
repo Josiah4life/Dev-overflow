@@ -9,6 +9,8 @@ import { QuestionFilters } from "@/constant/filter";
 import { getSavedQuestion } from "@/lib/actions/user.action";
 import { SearchParamsProps } from "@/types";
 import { auth } from "@clerk/nextjs/server";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 export default async function Home(props: SearchParamsProps) {
   const searchParams = await props.searchParams;
@@ -23,7 +25,7 @@ export default async function Home(props: SearchParamsProps) {
   });
 
   return (
-    <>
+    <Suspense fallback={<Loading />}>
       <h1 className="h1-bold text-dark100_light900">Saved Questions</h1>
       <div className=" mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
         <LocalSearch
@@ -69,6 +71,6 @@ export default async function Home(props: SearchParamsProps) {
           isNext={result.isNext}
         />
       </div>
-    </>
+    </Suspense>
   );
 }
