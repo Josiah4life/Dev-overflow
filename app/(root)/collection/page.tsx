@@ -25,7 +25,8 @@ export default async function Home(props: SearchParamsProps) {
   });
 
   return (
-    <Suspense fallback={<Loading />}>
+    <>
+      {" "}
       <h1 className="h1-bold text-dark100_light900">Saved Questions</h1>
       <div className=" mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
         <LocalSearch
@@ -66,11 +67,13 @@ export default async function Home(props: SearchParamsProps) {
         )}
       </div>
       <div className="mt-10">
-        <Pagination
-          pageNumber={searchParams?.page ? +searchParams.page : 1}
-          isNext={result.isNext}
-        />
+        <Suspense fallback={<Loading />}>
+          <Pagination
+            pageNumber={searchParams?.page ? +searchParams.page : 1}
+            isNext={result.isNext}
+          />
+        </Suspense>
       </div>
-    </Suspense>
+    </>
   );
 }
