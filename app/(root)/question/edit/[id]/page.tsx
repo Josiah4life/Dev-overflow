@@ -7,7 +7,7 @@ import React from "react";
 
 const page = async (props: ParamsProps) => {
   const params = await props.params;
-  const { userId } = auth();
+  const { userId } = await auth();
 
   if (!userId) return null;
 
