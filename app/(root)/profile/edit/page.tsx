@@ -2,7 +2,7 @@ import Profile from "@/components/forms/Profile";
 import { getUserById } from "@/lib/actions/user.action";
 import { auth } from "@clerk/nextjs/server";
 import React, { Suspense } from "react";
-import Loading from "../[id]/loading";
+import Loading from "./loading";
 
 const page = async () => {
   const { userId } = await auth();
