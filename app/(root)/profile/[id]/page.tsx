@@ -16,8 +16,10 @@ import AnswersTab from "@/components/shared/AnswersTab";
 import QuestionTab from "@/components/shared/QuestionTab";
 
 const Page = async ({ params, searchParams }: URLProps) => {
-  const { userId: clerkId } = auth();
-  const userInfo = await getUserInfo({ userId: params.id });
+  const { userId: clerkId } = await auth();
+
+  const awaitedParams = await params;
+  const userInfo = await getUserInfo({ userId: awaitedParams.id });
 
   return (
     <>
