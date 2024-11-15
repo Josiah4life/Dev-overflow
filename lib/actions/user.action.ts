@@ -17,7 +17,7 @@ import { revalidatePath } from "next/cache";
 import Question from "@/database/question.model";
 import Tag from "@/database/tags.model";
 import Answer from "@/database/answer.model";
-import { BadgeCriteriaType } from "@/types";
+import { CriteriaProps } from "@/types";
 import { assignBadges } from "../utils";
 
 export async function getUserById(params: GetUserByIdParams) {
@@ -359,19 +359,19 @@ export async function getUserInfo(params: GetUserByIdParams) {
       },
     ]);
 
-    const criteria = [
-      { type: "QUESTION_COUNT" as BadgeCriteriaType, count: totalQuestions },
-      { type: "ANSWER_COUNT" as BadgeCriteriaType, count: totalQuestions },
+    const criteria: CriteriaProps[] = [
+      { type: "QUESTION_COUNT", count: totalQuestions },
+      { type: "ANSWER_COUNT", count: totalQuestions },
       {
-        type: "QUESTION_UPVOTES" as BadgeCriteriaType,
+        type: "QUESTION_UPVOTES",
         count: questionUpvotes?.totalUpvotes || 0,
       },
       {
-        type: "ANSWER_UPVOTES" as BadgeCriteriaType,
+        type: "ANSWER_UPVOTES",
         count: answerUpvotes?.totalUpvotes || 0,
       },
       {
-        type: "TOTAL_VIEWS" as BadgeCriteriaType,
+        type: "TOTAL_VIEWS",
         count: questionViews?.totalUpvotes || 0,
       },
     ];

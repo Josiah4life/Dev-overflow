@@ -3,7 +3,7 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import qs from "query-string";
 import { BADGE_CRITERIA } from "@/constant";
-import { BadgeCounts } from "@/types";
+import { BadgeCounts, CriteriaProps } from "@/types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -117,14 +117,14 @@ export const removeKeysFromQuery = ({
   );
 };
 
-interface BadgeParam {
-  criteria: {
-    type: keyof typeof BADGE_CRITERIA;
-    count: number;
-  }[];
-}
+// interface BadgeParam {
+//   criteria: {
+//     type: keyof typeof BADGE_CRITERIA;
+//     count: number;
+//   }[];
+// }
 
-export const assignBadges = (params: BadgeParam) => {
+export const assignBadges = (params: { criteria: CriteriaProps[] }) => {
   const badgeCounts: BadgeCounts = {
     GOLD: 0,
     SILVER: 0,
@@ -133,12 +133,12 @@ export const assignBadges = (params: BadgeParam) => {
 
   const { criteria } = params;
 
-  criteria.forEach((item) => {
+  criteria.forEach((item: CriteriaProps) => {
     const { type, count } = item;
     const badgeLevels = BADGE_CRITERIA[type];
 
     Object.keys(badgeLevels).forEach((level) => {
-      if (count >= badgeLevels[level]) {
+      if (count >= badgeLevels[level as keyof BadgeCounts]) {
         badgeCounts[level as keyof BadgeCounts] += 1;
       }
     });

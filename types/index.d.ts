@@ -1,6 +1,6 @@
 // For this file we're defining types we want our code to strictly obey.
 
-import { BADGE_CRITERIA } from "@/constants";
+// import { BADGE_CRITERIA } from "@/constants"; // Won't work if isolaatedModule is set to true in tsconfig.json
 export interface SidebarLink {
   imgURL: string;
   route: string;
@@ -56,10 +56,23 @@ export interface BadgeCounts {
   SILVER: number;
   BRONZE: number;
 }
-export type BadgeCriteriaType = keyof typeof BADGE_CRITERIA;
+
+export type BadgeCriteriaKeys =
+  | "QUESTION_COUNT"
+  | "ANSWER_COUNT"
+  | "QUESTION_UPVOTES"
+  | "ANSWER_UPVOTES"
+  | "TOTAL_VIEWS";
+
+export type BadgeCriteria = Record<BadgeCriteriaKeys, BadgeCounts>;
 
 export interface Theme {
   value: string;
   label: string;
   icon: string;
+}
+
+export interface CriteriaProps {
+  type: BadgeCriteriaKeys;
+  count: number;
 }

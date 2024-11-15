@@ -1,4 +1,4 @@
-import { SidebarLink, Theme } from "@/types";
+import { SidebarLink, Theme, BadgeCriteria } from "@/types";
 
 import sunIcon from "../public/assets/icons/sun.svg";
 import moonIcon from "../public/assets/icons/moon.svg";
@@ -46,7 +46,7 @@ export const sidebarLinks: SidebarLink[] = [
     label: "Ask a question",
   },
 ];
-export const BADGE_CRITERIA = {
+export const BADGE_CRITERIA: BadgeCriteria = {
   QUESTION_COUNT: {
     BRONZE: 10,
     SILVER: 50,
