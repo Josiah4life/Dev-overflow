@@ -17,8 +17,8 @@ export const metadata: Metadata = {
   title: "Home | Dev Overflow",
 };
 
-export default async function Home(props: SearchParamsProps) {
-  const searchParams = await props.searchParams;
+export default async function Home(props: Promise<SearchParamsProps>) {
+  const searchParams = await (await props).searchParams;
   const result = await getQuestions({
     searchQuery: searchParams.q,
     filter: searchParams.filter,
