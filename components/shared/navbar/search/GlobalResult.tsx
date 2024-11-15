@@ -29,7 +29,11 @@ const GlobalResult = () => {
       try {
         const res = await globalSearch({ query: global, type });
 
-        setResult(JSON.parse(res));
+        if (typeof res === "string") {
+          setResult(JSON.parse(res));
+        } else {
+          console.error("Expected a string response, received:", res);
+        }
       } catch (error) {
         console.error(error);
         throw error;
