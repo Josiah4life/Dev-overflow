@@ -1,29 +1,28 @@
-import type { Metadata } from "next";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-
-import QuestionCard from "@/components/card/QuestionCard";
-import HomeFilter from "@/components/home/HomeFilter";
 import Filter from "@/components/shared/Filter";
-import LocalSearch from "@/components/shared/navbar/search/LocalSearch";
 import NoResult from "@/components/shared/NoResult";
 import Pagination from "@/components/shared/Pagination";
-import { HomePageFilters } from "@/constant/filter";
+
 import { getQuestions } from "@/lib/actions/question.action";
+import { SearchParamsProps } from "@/types";
+import Link from "next/link";
+
+import type { Metadata } from "next";
+import { Button } from "@/components/ui/button";
+import LocalSearchbar from "@/components/shared/navbar/search/LocalSearch";
+import { HomePageFilters } from "@/constant/filter";
+import QuestionCard from "@/components/card/QuestionCard";
+import HomeFilter from "@/components/home/HomeFilter";
 
 export const metadata: Metadata = {
   title: "Home | Dev Overflow",
 };
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: URLSearchParams;
-}) {
+export default async function Home(props: SearchParamsProps) {
+  const searchParams = await props.searchParams;
   const result = await getQuestions({
-    searchQuery: searchParams.get("q") || "",
-    filter: searchParams.get("filter") || "",
-    page: parseInt(searchParams.get("page") || "1", 10),
+    searchQuery: searchParams.q,
+    filter: searchParams.filter,
+    page: searchParams.page ? +searchParams.page : 1,
   });
 
   return (
@@ -37,14 +36,16 @@ export default async function Home({
           </Button>
         </Link>
       </div>
+
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
-        <LocalSearch
+        <LocalSearchbar
           route="/"
           iconPosition="left"
           imgSrc="/assets/icons/search.svg"
           placeholder="Search for questions"
           otherClasses="flex-1"
         />
+
         <Filter
           filters={HomePageFilters}
           otherClasses="min-h-[56px] sm:min-w-[170px]"
@@ -71,16 +72,16 @@ export default async function Home({
           ))
         ) : (
           <NoResult
-            title="There's no question to show"
-            description="Be the first to break the silence! 🚀 Ask a Question and kickstart the discussion. Your query could be the next big thing others learn from. Get involved! 💡"
+            title="There’s no question to show"
+            description="Be the first to break the silence! 🚀 Ask a Question and kickstart the discussion. our query could be the next big thing others learn from. Get involved! 💡"
             link="/ask-question"
-            linkTitle="Ask a question"
+            linkTitle="Ask a Question"
           />
         )}
       </div>
       <div className="mt-10">
         <Pagination
-          pageNumber={parseInt(searchParams.get("page") || "1", 10)}
+          pageNumber={searchParams?.page ? +searchParams.page : 1}
           isNext={result.isNext}
         />
       </div>

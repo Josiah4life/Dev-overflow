@@ -15,7 +15,9 @@ import Stats from "@/components/shared/Stats";
 import AnswersTab from "@/components/shared/AnswersTab";
 import QuestionTab from "@/components/shared/QuestionTab";
 
-const Page = async ({ params, searchParams }: URLProps) => {
+const Page = async (props: URLProps) => {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
   const { userId: clerkId } = auth();
 
   const userInfo = await getUserInfo({

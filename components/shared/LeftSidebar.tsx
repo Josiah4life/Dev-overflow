@@ -6,9 +6,7 @@ import Link from "next/link";
 import { sidebarLinks } from "@/constant";
 import { usePathname } from "next/navigation";
 import { SignedOut, useAuth } from "@clerk/nextjs";
-// import { useAuth } from "@clerk/nextjs";
 import { Button } from "../ui/button";
-// import { useAuth } from "@clerk/clerk-react";
 
 const LeftSidebar = () => {
   const pathname = usePathname();

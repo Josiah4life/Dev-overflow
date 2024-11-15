@@ -13,7 +13,9 @@ import { getUserById } from "@/lib/actions/user.action";
 import AllAnswers from "@/components/shared/AllAnswers";
 import Votes from "@/components/shared/Votes";
 
-const Page = async ({ searchParams, params }: any) => {
+const Page = async (props: any) => {
+  const params = await props.params;
+  const searchParams = await props.searchParams;
   const result = await getQuestionById({
     questionId: params.id,
   });
