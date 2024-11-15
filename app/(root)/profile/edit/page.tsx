@@ -1,31 +1,29 @@
 import Profile from "@/components/forms/Profile";
 import { getUserById } from "@/lib/actions/user.action";
 import { auth } from "@clerk/nextjs/server";
-import React from "react";
+import React, { Suspense } from "react";
+import Loading from "./loading";
 
 const page = async () => {
-  try {
-    const { userId } = await auth();
+  const { userId } = await auth();
 
-    if (!userId) return <div>User not authenticated</div>;
+  if (!userId) return <div>User not authenticated</div>;
 
-    const mongoUser = await getUserById({ userId });
+  const mongoUser = await getUserById({ userId });
 
-    return (
-      <>
-        <div>
-          <h1 className="h1-bold text-dark100_light900">Edit Profile</h1>
+  return (
+    <>
+      <div>
+        <h1 className="h1-bold text-dark100_light900">Edit Profile</h1>
 
-          <div className="mt-9">
+        <div className="mt-9">
+          <Suspense fallback={<Loading />}>
             <Profile clerkId={userId} user={JSON.stringify(mongoUser)} />
-          </div>
+          </Suspense>
         </div>
-      </>
-    );
-  } catch (error) {
-    console.error("Error in page:", error);
-    return <div>Something went wrong</div>;
-  }
+      </div>
+    </>
+  );
 };
 
 export default page;
