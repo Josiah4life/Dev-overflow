@@ -17,11 +17,7 @@ export const metadata: Metadata = {
   title: "Home | Dev Overflow",
 };
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | undefined }>;
-}) {
+export default async function Home({ searchParams }: SearchParamsProps) {
   // const filters = await searchParams;
   const awaitedSearchParams = await searchParams;
   /* @next-codemod-ignore */
@@ -87,7 +83,7 @@ export default async function Home({
       </div>
       <div className="mt-10">
         <Pagination
-          pageNumber={searchParams?.page ? +searchParams.page : 1}
+          pageNumber={awaitedSearchParams?.page ? +awaitedSearchParams.page : 1}
           isNext={result.isNext}
         />
       </div>
