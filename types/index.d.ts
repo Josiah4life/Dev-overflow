@@ -49,7 +49,7 @@ export interface SearchParamsProps {
 
 export interface URLProps {
   params: { id: string };
-  searchParams: { [key: string]: string | undefined };
+  searchParams: Promise<{ [key: string]: string | undefined }>;
 }
 export interface BadgeCounts {
   GOLD: number;
