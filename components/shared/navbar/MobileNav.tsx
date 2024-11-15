@@ -7,6 +7,7 @@ import {
   SheetContent,
   SheetTrigger,
   SheetClose,
+  SheetTitle,
 } from "@/components/ui/sheet";
 import Image from "next/image";
 import Link from "next/link";
@@ -68,6 +69,7 @@ const MobileNav = () => {
         side="left"
         className="background-light900_dark200 border-none"
       >
+        <SheetTitle>Content</SheetTitle>
         <Link href="/" className="flex items-center gap-1">
           <Image
             src="/assets/images/site-logo.svg"
