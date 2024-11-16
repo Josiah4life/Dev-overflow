@@ -9,6 +9,7 @@ import Pagination from "@/components/shared/Pagination";
 
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import Loading from "./loading";
 export const metadata: Metadata = {
   title: "Community | Dev Overflow",
 };
@@ -22,7 +23,7 @@ const Page = async (props: SearchParamsProps) => {
   });
 
   return (
-    <Suspense>
+    <Suspense fallback={<Loading />}>
       <h1 className="h1-bold text-dark100_light900">All Users</h1>
       <div className=" mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
         <LocalSearch
@@ -52,10 +53,12 @@ const Page = async (props: SearchParamsProps) => {
       </section>
 
       <div className="mt-10">
-        <Pagination
-          pageNumber={searchParams?.page ? +searchParams.page : 1}
-          isNext={result.isNext}
-        />
+        <Suspense>
+          <Pagination
+            pageNumber={searchParams?.page ? +searchParams.page : 1}
+            isNext={result.isNext}
+          />
+        </Suspense>
       </div>
     </Suspense>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Filter from "./Filter";
 import { AnswerFilters } from "@/constant/filter";
 import { getAnswer } from "@/lib/actions/answer.action";
@@ -32,7 +32,10 @@ const AllAnswers = async ({
     <div className="mt-11">
       <div className="flex items-center justify-between">
         <h3 className="primary-text-gradient">{totalAnswers} Answers</h3>
-        <Filter filters={AnswerFilters} />
+
+        <Suspense>
+          <Filter filters={AnswerFilters} />
+        </Suspense>
       </div>
 
       <div>
@@ -81,7 +84,9 @@ const AllAnswers = async ({
         ))}
       </div>
       <div className="mt-10 w-full">
-        <Pagination pageNumber={page ? +page : 1} isNext={result.isNext} />
+        <Suspense>
+          <Pagination pageNumber={page ? +page : 1} isNext={result.isNext} />
+        </Suspense>
       </div>
     </div>
   );

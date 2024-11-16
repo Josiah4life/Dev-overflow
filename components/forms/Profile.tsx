@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { Textarea } from "../ui/textarea";
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import { ProfileSchema } from "@/lib/validation";
 import { usePathname, useRouter } from "next/navigation";
 import { updateUser } from "@/lib/actions/user.action";
@@ -66,7 +66,8 @@ const Profile = ({ clerkId, user }: Props) => {
   }
 
   return (
-    <Suspense>
+    <>
+      {" "}
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -180,7 +181,7 @@ const Profile = ({ clerkId, user }: Props) => {
           </div>
         </form>
       </Form>
-    </Suspense>
+    </>
   );
 };
 

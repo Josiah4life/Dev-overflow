@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import GlobalResult from "./GlobalResult";
 
 const GlobalSearch = () => {
@@ -91,7 +91,11 @@ const GlobalSearch = () => {
           className="paragraph-regular no-focus placeholder text-dark400_light700  border-none bg-transparent shadow-none outline-none"
         />
       </div>
-      {isOpen && <GlobalResult />}
+      {isOpen && (
+        <Suspense>
+          <GlobalResult />
+        </Suspense>
+      )}
     </div>
   );
 };

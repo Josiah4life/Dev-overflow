@@ -1,6 +1,6 @@
 import { getUserQuestions } from "@/lib/actions/user.action";
 import { SearchParamsProps } from "@/types";
-import React from "react";
+import React, { Suspense } from "react";
 import QuestionCard from "../card/QuestionCard";
 import Pagination from "./Pagination";
 
@@ -34,10 +34,14 @@ const QuestionTab = async ({ searchParams, userId, clerkId }: Props) => {
         />
       ))}
       <div className="mt-10">
-        <Pagination
-          isNext={result.isNext}
-          pageNumber={awaitedSearchparams?.page ? +awaitedSearchparams.page : 1}
-        />
+        <Suspense>
+          <Pagination
+            isNext={result.isNext}
+            pageNumber={
+              awaitedSearchparams?.page ? +awaitedSearchparams.page : 1
+            }
+          />
+        </Suspense>
       </div>
     </>
   );

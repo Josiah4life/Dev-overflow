@@ -1,11 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    serverActions: true,
+    // missingSuspenseWithCSRBailout: false,
+    // serverActions: true, Not needed, enabled by default, give errors during build process
     mdxRs: true,
-    serverComponentsExternalPackages: ["mongoose"],
   },
-
+  serverExternalPackages: ["mongoose"],
   images: {
     remotePatterns: [
       {

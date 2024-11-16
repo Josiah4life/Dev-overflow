@@ -13,15 +13,14 @@ import { HomePageFilters } from "@/constant/filter";
 import QuestionCard from "@/components/card/QuestionCard";
 import HomeFilter from "@/components/home/HomeFilter";
 import { Suspense } from "react";
+import Loading from "./loading";
 
 export const metadata: Metadata = {
   title: "Home | Dev Overflow",
 };
 
 export default async function Home({ searchParams }: SearchParamsProps) {
-  // const filters = await searchParams;
   const awaitedSearchParams = await searchParams;
-  /* @next-codemod-ignore */
   const result = await getQuestions({
     searchQuery: awaitedSearchParams.q || undefined,
     filter: awaitedSearchParams.filter || undefined,
@@ -29,7 +28,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
   });
 
   return (
-    <Suspense>
+    <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
         <h1 className="h1-bold text-dark100_light900">All Questions</h1>
 
@@ -41,22 +40,28 @@ export default async function Home({ searchParams }: SearchParamsProps) {
       </div>
 
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
-        <LocalSearchbar
-          route="/"
-          iconPosition="left"
-          imgSrc="/assets/icons/search.svg"
-          placeholder="Search for questions"
-          otherClasses="flex-1"
-        />
+        <Suspense fallback={<Loading />}>
+          <LocalSearchbar
+            route="/"
+            iconPosition="left"
+            imgSrc="/assets/icons/search.svg"
+            placeholder="Search for questions"
+            otherClasses="flex-1"
+          />
+        </Suspense>
 
-        <Filter
-          filters={HomePageFilters}
-          otherClasses="min-h-[56px] sm:min-w-[170px]"
-          containerClasses="hidden max-md:flex"
-        />
+        <Suspense fallback={<Loading />}>
+          <Filter
+            filters={HomePageFilters}
+            otherClasses="min-h-[56px] sm:min-w-[170px]"
+            containerClasses="hidden max-md:flex"
+          />
+        </Suspense>
       </div>
 
-      <HomeFilter />
+      <Suspense fallback={<Loading />}>
+        <HomeFilter />
+      </Suspense>
 
       <div className="mt-10 flex w-full flex-col gap-6">
         {result.questions.length > 0 ? (
@@ -82,12 +87,17 @@ export default async function Home({ searchParams }: SearchParamsProps) {
           />
         )}
       </div>
+
       <div className="mt-10">
-        <Pagination
-          pageNumber={awaitedSearchParams?.page ? +awaitedSearchParams.page : 1}
-          isNext={result.isNext}
-        />
+        <Suspense fallback={<Loading />}>
+          <Pagination
+            pageNumber={
+              awaitedSearchParams?.page ? +awaitedSearchParams.page : 1
+            }
+            isNext={result.isNext}
+          />
+        </Suspense>
       </div>
-    </Suspense>
+    </>
   );
 }

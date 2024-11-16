@@ -1,6 +1,6 @@
 import { getUserInfo } from "@/lib/actions/user.action";
 import { URLProps } from "@/types";
-import React from "react";
+import React, { Suspense } from "react";
 import Image from "next/image";
 import { SignedIn } from "@clerk/nextjs";
 import Link from "next/link";
@@ -14,6 +14,7 @@ import ProfileLink from "@/components/shared/ProfileLink";
 import Stats from "@/components/shared/Stats";
 import AnswersTab from "@/components/shared/AnswersTab";
 import QuestionTab from "@/components/shared/QuestionTab";
+import Loading from "./loading";
 
 const Page = async ({ params, searchParams }: URLProps) => {
   const { userId: clerkId } = await auth();
@@ -22,7 +23,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
   const userInfo = await getUserInfo({ userId: awaitedParams.id });
 
   return (
-    <>
+    <Suspense fallback={<Loading />}>
       <div className="flex flex-col-reverse items-start justify-between sm:flex-row">
         <div className="flex flex-col items-start gap-4 lg:flex-row">
           <Image
@@ -121,7 +122,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
           </TabsContent>
         </Tabs>
       </div>
-    </>
+    </Suspense>
   );
 };
 
